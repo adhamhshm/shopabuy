@@ -1,0 +1,72 @@
+[----- Study Notes -----]
+
+> dotnet new sln ----- (in main folder)
+> dotnet new webapi -h ----- (open some list to setting up webapi)
+> dotnet new webapi -n API -controllers
+> dotnet sln add API/ ----- (add new project to the solution file)
+> code . ----- (will open vs code, now use the terminal)
+> cd API ----- (this will enter API folder that was created)
+> dotnet run ----- (use inside the API folder, it should start the project)
+
+- if you open the localhost link, you may not get anything, 
+- but in API folder, we have the Controllers folder and in it, 
+- we have the WeatherForecastController.cs file
+- so, add something to the localhost link -> like [localhost]/WeatherForecast
+- you should see something related to the code in the WeatherForecastController.cs file
+
+- in vs code, install C# Dev Kit, SQLite, SQLite Viewer, NuGet Gallery
+
+- if you get connection not secure warning, run in API folder
+> dotnet dev-certs https --clean
+> dotnet dev-certs https --trust
+
+- in vs code, use solution explorer to create folders and files
+- in c# file, for shortcut type "prop" / "propfull" [ENTER], to create property
+
+- using entity framework
+- in vs code, go to terminal, in its tabs, see we have a NUGET (should install NuGet Gallery)
+- in NUGET, search for "microsoft.entityframeworkcore"
+- select the Microsoft.EntityFrameworkCore.Sqlite, Microsoft.EntityFrameworkCore.Design
+- choose the version of .NET you are using, and install to API.csproj
+- now create a new folder -> Data, add new file -> StoreContext.cs
+- add DbContext here
+- use "ctor" [ENTER], to create constructor, write the code
+- now, go to startup code file, Program.cs, add the necessary code for services
+
+- creating entity framework migration
+- go to appsettings.json / appsettings.Development.json, add code there
+- now search "dotnet ef" in browser 
+- copy install prompt -> dotnet tool install --global dotnet-ef --version 9.0.4 (in API)
+- can try check if installed -> dotnet ef
+> dotnet ef migrations add InitialCreate -o Data/Migrations
+- create some classes that define the database schema based on the code that we've written so far
+- to undo this action, use -> dotnet ef migrations remove
+- you should have some files in the API/Data/Migrations folder
+> dotnet ef database update
+- notice now we have store.db file, with SQLite Viewer, should be able to view the file
+
+- adding data to database
+- create a new class, DbInitializer.cs
+- use method in Program.cs
+- can try remove the created db
+> dotnet ef database drop
+- run command to start the API again
+> dotnet watch
+
+- after this just create the controller class
+- nothing fancy
+- using postman
+- after this is about asynchronous only
+
+- with git, can use the extension to open Source control
+- in main folder
+> dotnet new list
+- find this -> dotnet gitignore file | gitignore,.gitignore | Config
+> dotnet new gitignore
+- this will add the gitignore file
+- to add file to the .gitignore, just use right click
+
+
+
+
+
