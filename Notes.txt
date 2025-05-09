@@ -80,6 +80,9 @@
 - install mui from its docs
 - install font and icons too
 
+> npm install react-router-dom
+- other react router stuffs may not be needed
+
 
 
 

@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-import { Product } from "../models/Product";
-import Catalog from "../features/catalog/Catalog";
+import { useState } from "react";
 import { Box, Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { NavBar } from "./NavBar";
+import { Outlet } from "react-router-dom";
 
 function App() {
 
-    const [products, setProducts] = useState<Product[]>([]);
     const [darkMode, setDarkMode] = useState(false);
     //const darkMode = true;
     const palleteType = darkMode ? "dark" : "light";
@@ -24,15 +22,6 @@ function App() {
         setDarkMode(!darkMode);
     };
 
-    // useEffect will need an array of dependencies, when these dependencies change
-    // the idea is that the useEffect runs again to attempt to synchronize with the external state our API
-    // if no dependencies, useEffect is only going to run once when this component first mounts
-    useEffect(() => {
-        fetch("https://localhost:5001/api/products")
-            .then(response => response.json())
-                .then(data => setProducts(data))
-    }, []);
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -40,12 +29,13 @@ function App() {
             <Box 
                 sx={{
                     minHeight: "100vh", 
-                    background: darkMode ? "radial-gradient(circle, #8B7141, #111B27)" : "radial-gradient(circle, #BAECF9, #F0F9FF)", 
+                    background: darkMode ? "radial-gradient(circle,rgb(5, 33, 51),rgb(11, 21, 32))" : "radial-gradient(circle,rgb(136, 205, 223),rgb(227, 242, 250))", 
                     py: 6
                 }}
             >
                 <Container maxWidth="xl" sx={{mt: 8}}>
-                    <Catalog products={products}/>
+                    {/* before --> <Catalog /> */}
+                    <Outlet />
                 </Container>
             </Box>
         </ThemeProvider>
