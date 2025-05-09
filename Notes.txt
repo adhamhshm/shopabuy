@@ -66,6 +66,20 @@
 - this will add the gitignore file
 - to add file to the .gitignore, just use right click
 
+- react part
+- use vite, typescript + swc
+- can change port number in vite.config.js
+- interesting setting for Linked Editing (vs code)
+
+- add cors in API setup
+- change the client http to https
+> cd client
+> npm install vite-plugin-mkcert -D // -D means to just add this to dev dependency, not production
+- go to vite.config.ts, add -> import mkcert from 'vite-plugin-mkcert'
+
+- install mui from its docs
+- install font and icons too
+
 
 
 
