@@ -83,6 +83,10 @@
 > npm install react-router-dom
 - other react router stuffs may not be needed
 
+- using redux
+- install it as per in docs
+
+
 
 
 

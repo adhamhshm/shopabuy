@@ -1,12 +1,11 @@
-import { useState } from "react";
 import { Box, Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { NavBar } from "./NavBar";
 import { Outlet } from "react-router-dom";
+import { useAppSelector } from "../store/store";
 
 function App() {
 
-    const [darkMode, setDarkMode] = useState(false);
-    //const darkMode = true;
+    const { darkMode } = useAppSelector(state => state.ui)
     const palleteType = darkMode ? "dark" : "light";
 
     const theme = createTheme({
@@ -18,14 +17,10 @@ function App() {
         }
     });
 
-    const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
-    };
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
+            <NavBar />
             <Box 
                 sx={{
                     minHeight: "100vh", 
@@ -44,7 +39,49 @@ function App() {
 
 export default App;
 
+// Before using the Redux Toolkit
+// function App() {
 
+//     const [darkMode, setDarkMode] = useState(getInitialDarkMode());
+//     //const darkMode = true;
+//     const palleteType = darkMode ? "dark" : "light";
+
+//     const theme = createTheme({
+//         palette: {
+//             mode: palleteType,
+//             background: {
+//                 default: (palleteType === "light") ? "#EAEAEA" : "#121212"
+//             }
+//         }
+//     });
+
+//     const toggleDarkMode = () => {
+//         localStorage.setItem("darkMode", JSON.stringify(!darkMode));
+//         setDarkMode(!darkMode);
+//     };
+
+//     return (
+//         <ThemeProvider theme={theme}>
+//             <CssBaseline />
+//             <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
+//             <Box 
+//                 sx={{
+//                     minHeight: "100vh", 
+//                     background: darkMode ? "radial-gradient(circle,rgb(5, 33, 51),rgb(11, 21, 32))" : "radial-gradient(circle,rgb(136, 205, 223),rgb(227, 242, 250))", 
+//                     py: 6
+//                 }}
+//             >
+//                 <Container maxWidth="xl" sx={{mt: 8}}>
+//                     {/* before --> <Catalog /> */}
+//                     <Outlet />
+//                 </Container>
+//             </Box>
+//         </ThemeProvider>
+//     )
+// };
+
+
+// Random Created Code for Testing Purposes
 // const generateId = () => {
 //     const randomNum = Math.floor(Math.random() * 100); // Random 2-digit number
 //     return randomNum;

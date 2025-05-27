@@ -1,7 +1,9 @@
 import { DarkMode, LightMode, ShoppingCart } from "@mui/icons-material";
-import { AppBar, Badge, Box, IconButton, List, ListItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Badge, Box, IconButton, LinearProgress, List, ListItem, Toolbar, Typography } from "@mui/material";
 import { authLinks, navigationLinks } from "../constant";
 import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import { setDarkMode } from "./uiSlice";
 
 // what an ugly way to do styling haha
 const navigationStyles = {
@@ -16,12 +18,10 @@ const navigationStyles = {
     }
 }
 
-type Props = {
-    toggleDarkMode: () => void;
-    darkMode: boolean;
-}
+export const NavBar = () => {
 
-export const NavBar = ({toggleDarkMode, darkMode}: Props) => {
+    const { isLoading, darkMode } = useAppSelector(state => state.ui);
+    const dispatch = useAppDispatch();
 
     return (
         <AppBar position="fixed">
@@ -30,7 +30,7 @@ export const NavBar = ({toggleDarkMode, darkMode}: Props) => {
                     <Typography component={NavLink} to="/" variant="h6" sx={{textDecoration: "none", color: "inherit"}}>
                         SHOPABUY
                     </Typography>
-                    <IconButton onClick={toggleDarkMode}>
+                    <IconButton onClick={() => dispatch(setDarkMode())}>
                         {darkMode ? <DarkMode /> : <LightMode sx={{color: "yellow"}}/>}
                     </IconButton>
                 </Box>
@@ -68,6 +68,11 @@ export const NavBar = ({toggleDarkMode, darkMode}: Props) => {
                     </List>
                 </Box>
             </Toolbar>
+            { isLoading && (
+                <Box sx={{width: "100%"}}>
+                    <LinearProgress color="secondary" />
+                </Box>
+            )}
         </AppBar>
     )
 }
