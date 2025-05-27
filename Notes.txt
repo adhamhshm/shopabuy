@@ -69,7 +69,7 @@
 - react part
 - use vite, typescript + swc
 - can change port number in vite.config.js
-- interesting setting for Linked Editing (vs code)
+- interesting setting for Linked Editing (vs code) refer to the <name></name>
 
 - add cors in API setup
 - change the client http to https
@@ -85,7 +85,12 @@
 
 - using redux
 - install it as per in docs
-
+- also install the react-redux (redux-toolkit)
+> npm install react-redux
+- create reducer, add store in the app folder, add Provider in main.tsx
+- in the learning it teach about legacy redux and redux toolkit, refer the ContactPage.tsx
+- can use redux dev tool
+- create a custom based query using the baseApi.ts in api folder
 
 
 
