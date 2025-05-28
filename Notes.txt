@@ -92,7 +92,22 @@
 - can use redux dev tool
 - create a custom based query using the baseApi.ts in api folder
 
+- Error handling
+- covered in API folder, create BaseApiController using API controller template, when creating new file
+- learn how to setup exception from creating the middleware and use it in the program.cs
+- then, create api endpoint in client folder -> about folder (example used), edit the store.ts
+- error example is done in the about page
+- show some error with react-toastify
+- setup in the main.tsx and the baseApi.ts
+- in main.tsx, need the css file for toaster to work, need to import "react-toastify/dist/ReactToastify.css"
+- some ways to do error via a toast or error page, with new routes worth taking note for
 
+- learning how to debug C# in vs code
+- will need to create launch.json file from the vs code "Run and Debug"
+- use -> {}.NET: Attach to a .NET process -> run when service already started
+- use -> {}.NET: Launch a C# project -> run together with debugger
+- place the break point in any of the C# code
+- in "Run and Debug" select type of debug you want, then run
 
 
 
