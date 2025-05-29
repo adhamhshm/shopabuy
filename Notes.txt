@@ -109,5 +109,19 @@
 - place the break point in any of the C# code
 - in "Run and Debug" select type of debug you want, then run
 
-
+- Adding to cart
+- First create a new entity in Entities folder
+- then update the StoreContext.cs in Data/Migrations folder
+- now in the API folder run this > dotnet ef migrations add BasketEntityAdded
+- if table not yet created after build the migrations, can remove migrations with > dotnet ef migrations remove
+- edit the entity class as per your references like relation/foreign key stuffs
+- check the migrations file created, check for things like, table name, referential rule, nullable stuff etc
+- now can run > dotnet watch
+- the table should be created as per the migrations folder, in the store.db
+- now create BasketController class
+- now create the DTO classes
+- add extensions for reusable DTO
+- now move the client, add basket models
+- create basketApi.ts in features/basket folder
+- update the store.ts to include the new basket api, and its reducer and middleware
 
