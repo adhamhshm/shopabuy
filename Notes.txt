@@ -124,4 +124,16 @@
 - now move the client, add basket models
 - create basketApi.ts in features/basket folder
 - update the store.ts to include the new basket api, and its reducer and middleware
+- create the basket page and component class
+- edit routes to allow access to basket page
+- edit the cart icon in navbar to include a link when click
+- now implementing the add to card thingy
+- check for cors in program.cs to allow cookie thingy
+- also modify the baseApi.ts in client side
+- create the basket component as needed
+- now need to solve the caching issue as not every page need cache, addding the tags
+- now update the navbar count for add to cart
+- make all necessary changes to catalog and basket folder files
+- create the checkout page, later will update the functionalities
+- also cater the issue of adding to basket for first time user
 

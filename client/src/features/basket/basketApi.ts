@@ -38,20 +38,23 @@ export const basketApi = createApi({
                 // Optimistically update basket in cache before server response
                 const patchResult = dispatch(
                     basketApi.util.updateQueryData("fetchBasket", undefined, (draft) => {
+                        // Type guard
                         const productId = isBasketItem(product) ? product.productId : product.id;
                         // Check if this is the first time basket is created
+                        // we have this check to address the issue if a new user is updating the basket first time with no cookie
                         if (!draft?.basketId) isNewBasket = true;
                         // If it's not a new basket, update the item quantity or add new item
                         if (!isNewBasket) {
                             const existingItem = draft.items.find(item => item.productId === productId);
                             if (existingItem) {
                                 existingItem.quantity += quantity;
-                            } else {
+                            } 
+                            else {
                                 // Add new item to basket
                                 draft.items.push(
                                     isBasketItem(product)
                                         ? product
-                                        : { ...product, productId: product.id, quantity }
+                                        : { ...product, productId: product.id, quantity } // new Item(product, quantity)); -> this is a class and this will throw "store cannot have non-serializable" warning, means only put seriazalble items in store
                                 );
                             }
                         }

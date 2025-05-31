@@ -1,9 +1,10 @@
 import { DarkMode, LightMode, ShoppingCart } from "@mui/icons-material";
 import { AppBar, Badge, Box, IconButton, LinearProgress, List, ListItem, Toolbar, Typography } from "@mui/material";
 import { authLinks, navigationLinks } from "../constant";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { setDarkMode } from "./uiSlice";
+import { useFetchBasketQuery } from "../../features/basket/basketApi";
 
 // what an ugly way to do styling haha
 const navigationStyles = {
@@ -22,6 +23,9 @@ export const NavBar = () => {
 
     const { isLoading, darkMode } = useAppSelector(state => state.ui);
     const dispatch = useAppDispatch();
+    const { data: basket } = useFetchBasketQuery();
+
+    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0) || 0;
 
     return (
         <AppBar position="fixed">
@@ -49,8 +53,8 @@ export const NavBar = () => {
                     </List>
                 </Box>
                 <Box sx={{display: "flex", alignItems: "center"}}>
-                    <IconButton size="large" sx={{color: "inherit"}}>
-                        <Badge badgeContent="4" color="secondary">
+                    <IconButton component={Link} to="/basket" size="large" sx={{color: "inherit"}}>
+                        <Badge badgeContent={itemCount} color="secondary">
                             <ShoppingCart />
                         </Badge>
                     </IconButton>
