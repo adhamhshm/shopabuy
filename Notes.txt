@@ -137,3 +137,8 @@
 - create the checkout page, later will update the functionalities
 - also cater the issue of adding to basket for first time user
 
+- now working on sorting, filtering and searching of products, will update the product controller in API
+- work on the API first and then, the client later
+- update the feature folder that is calling the api like catalog etc
+- update controller, update api (client), update slice, update store
+
