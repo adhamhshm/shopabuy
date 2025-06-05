@@ -1,5 +1,7 @@
 using API.Data;
+using API.Entities;
 using API.Middleware;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,13 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 builder.Services.AddCors();
 // Add service for exception
 builder.Services.AddTransient<ExceptionMiddleware>();
+builder.Services.AddIdentityApiEndpoints<User>(opt =>
+{
+    opt.User.RequireUniqueEmail = true;
+    //opt.User.Password.RequiredLength = 6; // can configure password if needed
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<StoreContext>();
 
 var app = builder.Build();
 
@@ -29,7 +38,12 @@ app.UseCors(opt =>
     opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:3000");
 });
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
+
+app.MapGroup("api").MapIdentityApi<User>(); // api/login, this will give access to api endpoints for User entity
 
 DbInitializer.InitDb(app);
 

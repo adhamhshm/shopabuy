@@ -142,3 +142,24 @@
 - update the feature folder that is calling the api like catalog etc
 - update controller, update api (client), update slice, update store
 
+- learning about identity with ASP.NET, login, register
+- there is a link, how to use Identity to secure web api backend for SPAs
+- in NUGET, install > Microsoft.AspNetCore.Identity.EntityFrameworkCore @Microsoft
+- then create User file in the Entitites folder in API
+- setup the program.cs, StoreContext.cs, DbInitializer.cs
+- now can create a new migration, make sure in API folder, can stop the API first
+> dotnet ef migrations add IdentityAdded
+- now in the data folder we will have the Identity migrations
+- now run the dotnet watch to initiate the data creation > dotnet watch
+- can drop the database, the store.db will be gone
+> dotnet ef database drop
+- if run the "> dotnet watch" again, store.db will be created back
+- add AccountController.cs, setup the api endpoint for register, login etc
+- add Address entity, then, need to update migrations
+> dotnet ef migrations add AddressAdded
+- can test the endpoint using postman
+- now adding the accountApi in the client side
+- add accountApi.ts, User.ts, LoginSchema.ts, edit the store.ts as usual
+- add form component in the account folder
+
+
