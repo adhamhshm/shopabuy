@@ -5,6 +5,8 @@ import { Link, NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { setDarkMode } from "./uiSlice";
 import { useFetchBasketQuery } from "../../features/basket/basketApi";
+import { useUserInfoQuery } from "../../features/account/accountApi";
+import UserMenu from "./UserMenu";
 
 // what an ugly way to do styling haha
 const navigationStyles = {
@@ -20,6 +22,8 @@ const navigationStyles = {
 }
 
 export const NavBar = () => {
+
+    const {data: user} = useUserInfoQuery();
 
     const { isLoading, darkMode } = useAppSelector(state => state.ui);
     const dispatch = useAppDispatch();
@@ -58,18 +62,22 @@ export const NavBar = () => {
                             <ShoppingCart />
                         </Badge>
                     </IconButton>
-                    <List sx={{display: "flex"}}>
-                        {authLinks.map(({title, path}) => (
-                            <ListItem 
-                                component={NavLink} 
-                                to={path} 
-                                key={path} 
-                                sx={navigationStyles}
-                            >
-                                {title.toUpperCase()}
-                            </ListItem>
-                        ))}
-                    </List>
+                    {user ? (
+                        <UserMenu user={user} />
+                    ) : (
+                        <List sx={{ display: 'flex' }}>
+                            {authLinks.map(({ title, path }) => (
+                                <ListItem
+                                    component={NavLink}
+                                    to={path}
+                                    key={path}
+                                    sx={navigationStyles}
+                                >
+                                    {title.toUpperCase()}
+                                </ListItem>
+                            ))}
+                        </List>
+                    )}
                 </Box>
             </Toolbar>
             { isLoading && (

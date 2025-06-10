@@ -24,7 +24,8 @@ export default function RegisterForm() {
                 errorArray.forEach(e => {
                     if (e.includes('Password')) {
                         setError('password', {message: e})
-                    } else if (e.includes('Email')) {
+                    } 
+                    else if (e.includes('Email')) {
                         setError('email', {message: e})
                     }
                 })

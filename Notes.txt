@@ -161,5 +161,9 @@
 - now adding the accountApi in the client side
 - add accountApi.ts, User.ts, LoginSchema.ts, edit the store.ts as usual
 - add form component in the account folder
+- use zod and react-hook-form to add some form validation
+- setup some persisting login session, in accountApi.ts and so on
+- create data schema for login and register
+- 
 
 
