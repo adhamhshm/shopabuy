@@ -1,70 +1,80 @@
 [----- Study Notes -----]
 
-> dotnet new sln ----- (in main folder)
-> dotnet new webapi -h ----- (open some list to setting up webapi)
-> dotnet new webapi -n API -controllers
-> dotnet sln add API/ ----- (add new project to the solution file)
-> code . ----- (will open vs code, now use the terminal)
-> cd API ----- (this will enter API folder that was created)
-> dotnet run ----- (use inside the API folder, it should start the project)
+- Section 2 - API basics
+- get .net info > dotnet --info
+- get .net template list 
+    > dotnet new list
+- create a main/root folder for the application
+- create a new solution file for .net in the main folder 
+    > dotnet new sln
+- see .sln file will be created
+- see list of settings for web api template 
+    > dotnet new webapi -h
+- create an API/ folder in main/root folder with controller template 
+    > dotnet new webapi -n API -controllers
+- add the project to the solution file 
+    > dotnet sln add API/
+- run API project > dotnet run
+- try open the API localhost url, you see nothing, but in API/ folder, we have Controllers/WeatherForecastController.cs
+- go to [localhost-url]/WeatherForecast, should see something related to the code in the WeatherForecastController.cs file
+- done with this demo part
+- install dependency/extensions in vs code
+    > C# Dev Kit, SQLite, SQLite Viewer, NuGet Gallery
+- use "solution explorer" in the explorer tab/dropdown of the vs code
+- use Program.cs as the main file for running .net application
+- see appsettings.json and appsettings.Development.json, for development, the later is more significant
+- see Properties/launchSettings.json for the app launch configuration, can retain the https
+- remove connection not secure warning, run in API folder
+    > dotnet dev-certs https --clean
+    > dotnet dev-certs https --trust
+- create Entities/ folder
+- create Product.cs in the Entities/  folder
+- use shortcut type "prop" / "propfull" [ENTER], to create property in a c# file
 
-- if you open the localhost link, you may not get anything, 
-- but in API folder, we have the Controllers folder and in it, 
-- we have the WeatherForecastController.cs file
-- so, add something to the localhost link -> like [localhost]/WeatherForecast
-- you should see something related to the code in the WeatherForecastController.cs file
-
-- in vs code, install C# Dev Kit, SQLite, SQLite Viewer, NuGet Gallery
-
-- if you get connection not secure warning, run in API folder
-> dotnet dev-certs https --clean
-> dotnet dev-certs https --trust
-
-- in vs code, use solution explorer to create folders and files
-- in c# file, for shortcut type "prop" / "propfull" [ENTER], to create property
-
-- using entity framework
-- in vs code, go to terminal, in its tabs, see we have a NUGET (should install NuGet Gallery)
-- in NUGET, search for "microsoft.entityframeworkcore"
+- Section 2 - using entity framework
+- use NUGET, look in the cli terminal, in its tab (NuGet Gallery should be installed)
+- search for "microsoft.entityframeworkcore" in NUGET
 - select the Microsoft.EntityFrameworkCore.Sqlite, Microsoft.EntityFrameworkCore.Design
 - choose the version of .NET you are using, and install to API.csproj
-- now create a new folder -> Data, add new file -> StoreContext.cs
-- add DbContext here
-- use "ctor" [ENTER], to create constructor, write the code
-- now, go to startup code file, Program.cs, add the necessary code for services
+- create Data folder
+- add new file StoreContext.cs, this class will be derived from DbContext
+- use shortcut type "ctor" [ENTER], to create constructor in a c# file
+- update Program.cs with DbContext services
+- update appsettings.Development.json to include "ConnectionStrings:DefaultConnections"
 
-- creating entity framework migration
-- go to appsettings.json / appsettings.Development.json, add code there
-- now search "dotnet ef" in browser 
-- copy install prompt -> dotnet tool install --global dotnet-ef --version 9.0.4 (in API)
-- can try check if installed -> dotnet ef
-> dotnet ef migrations add InitialCreate -o Data/Migrations
-- create some classes that define the database schema based on the code that we've written so far
-- to undo this action, use -> dotnet ef migrations remove
-- you should have some files in the API/Data/Migrations folder
-> dotnet ef database update
-- notice now we have store.db file, with SQLite Viewer, should be able to view the file
+- Section 2 - creating entity framework migration
+- install dotnet-ef in API, find in browser for docs
+    > dotnet tool install --global dotnet-ef --version 9.0.4
+- check if installed
+    > dotnet ef
+- create initial migrations
+    > dotnet ef migrations add InitialCreate -o Data/Migrations
+- update database migrations
+    > dotnet ef database update
+- see store.db file is created, with SQLite Viewer, to be able to view the file
 
-- adding data to database
-- create a new class, DbInitializer.cs
-- use method in Program.cs
-- can try remove the created db
-> dotnet ef database drop
+- Section 2 - adding data to database
+- create a new class, DbInitializer.cs in the Data/ folder
+- add mock data
+- add DbInitializer method in Program.cs, to initialize data creation
+- remove the existing created db
+    > dotnet ef database drop
 - run command to start the API again
-> dotnet watch
+    > dotnet watch
+- create Controller/ folder
+- add ProductsController.cs in the Controller/ folder, select API Controller template when creating a new file
+- use postman for api testing
+- use "async" in the ProductsController.cs, for best practices
 
-- after this just create the controller class
-- nothing fancy
-- using postman
-- after this is about asynchronous only
-
-- with git, can use the extension to open Source control
-- in main folder
-> dotnet new list
+Section 2 - source control with vs code
+- open Source control tab in vs code (git should be installed)
+- open main/root folder path, then run:
+    > dotnet new list
 - find this -> dotnet gitignore file | gitignore,.gitignore | Config
-> dotnet new gitignore
-- this will add the gitignore file
-- to add file to the .gitignore, just use right click
+- use this template to have tidier files changes in Source control tab, this will add the gitignore file
+    > dotnet new gitignore
+- right click and add to .gitignore, from the list of files in the Source Control
+- this is more on source control, not necessary to follow, but good to know
 
 - react part
 - use vite, typescript + swc
@@ -165,19 +175,51 @@
 - setup some persisting login session, in accountApi.ts and so on
 - create data schema for login and register
 
-- using stripe
-- create account as usual
-- dotnet add package Stripe.net or use NuGet
-- Create the PaymentService.cs
-- Add service to Program.cs
-- Need to make update to the database, stop the API
-> dotnet ef migrations add BasketEntityUpdated
-- can see Data/Migrations/<entity> for the generated content
-- now create PaymentController.cs
-- Ensure the Basket entity, BasketExtensions and BasketDto has the updated fields for payment
-- Now can update the CheckoutPage, and it components in feature/checkout
-- install stripe for react
-- update Basket models too
-- 
+- Section 10 - using stripe
+- create stripe account
+- add stripe dependency in API if not yet added
+    > dotnet add package Stripe.net or use NuGet
+- create Services folder
+- create PaymentsService.cs in Services/ folder
+- Add PaymentsService in Program.cs
+- update migrations
+    > dotnet ef migrations add BasketEntityUpdated
+- see Data/Migrations/ folder
+- create Controller/PaymentsController.cs
+- update Basket entity, BasketExtensions, BasketDto with updated properties/fields for payment
+- update the CheckoutPage in the frontent
+- create its components in feature/checkout
+- create lib/hooks/useBasket.ts
+- update some existing class to accomodate stripe integration
+
+- Section 11 - added Order feature
+- create OrderAggregate/ folder
+- create all classes needed in that Entities/OrderAggregate/ folder
+- update Data/StoreContext.cs with the DbSet<> property
+- update migrations
+    > dotnet ef migrations add OrderEntityAdded
+- see data in Data/Migrations/ folder
+- run API again, and store.db should be updated
+- create OrdersController in the Controllers/ folder
+- create ClaimsPrincipalExtensions in the Extensions/ folder
+- create CreateOrderDto.cs in the DTOs/ folder
+- update the migrations
+    > dotnet ef migrations add OrderEntityUpdated
+- restart the app and database will be updated
+    > dotnet watch
+- create OrderItemDto.cs in the DTOs/ folder
+- create OrderExtensions in the Extensions/ folder 
+- create Order.ts in the src/app/models/ folder
+- create features/order/ folder
+- create orderApi.ts in the order/ folder
+- update the store/store.ts to include the updated order reducer and middleware
+- update some methods in the lib/util.ts
+- install date-fns
+    > npm install date-fns
+- update CheckoutSteppet.tsx with the "createOrder" mutation
+- update CheckoutSuccess.tsx component
+- update routes/Routes.tsx
+- add stripe webhooks in the PaymentsController.cs
+- need to install stripe cli to get the WhSecret
 
 

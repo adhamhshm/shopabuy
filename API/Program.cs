@@ -23,7 +23,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 builder.Services.AddCors();
 // Add service for exception
 builder.Services.AddTransient<ExceptionMiddleware>();
-builder.Services.AddScoped<PaymentService>();
+builder.Services.AddScoped<PaymentsService>();
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
 {
     opt.User.RequireUniqueEmail = true;

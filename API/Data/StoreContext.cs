@@ -1,5 +1,6 @@
 using System;
 using API.Entities;
+using API.Entities.OrderAggregate;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ public class StoreContext(DbContextOptions options) : IdentityDbContext<User>(op
 
     // DbSet for baskets — this will map to the Baskets table in the database
     public required DbSet<Basket> Baskets { get; set; }
+    
+    public required DbSet<Order> Orders { get; set; }
 
     // This method is used to configure the model and seed initial data when the database is created.
     protected override void OnModelCreating(ModelBuilder builder)
@@ -27,19 +30,19 @@ public class StoreContext(DbContextOptions options) : IdentityDbContext<User>(op
         builder.Entity<IdentityRole>()
             .HasData(
                 // Create a "Member" role with a predefined ID
-                new IdentityRole 
-                { 
-                    Id = "e069461a-10cf-4abf-9930-d070b2a7e40f", 
-                    Name = "Member", 
-                    NormalizedName = "MEMBER" 
+                new IdentityRole
+                {
+                    Id = "e069461a-10cf-4abf-9930-d070b2a7e40f",
+                    Name = "Member",
+                    NormalizedName = "MEMBER"
                 },
 
                 // Create an "Admin" role with a predefined ID
-                new IdentityRole 
-                { 
-                    Id = "ed2e9149-fa53-484c-a93f-bd33f9e9fcf6", 
-                    Name = "Admin", 
-                    NormalizedName = "ADMIN" 
+                new IdentityRole
+                {
+                    Id = "ed2e9149-fa53-484c-a93f-bd33f9e9fcf6",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
                 }
             );
     }
