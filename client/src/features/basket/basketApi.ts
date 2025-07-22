@@ -5,6 +5,7 @@ import { baseQueryWithErrorHandling } from "../../app/api/baseApi";
 // Type definitions for Product and Basket entities
 import { Product } from "../../app/models/Product";
 import { Basket, Item } from "../../app/models/Basket";
+import Cookies from 'js-cookie';
 
 // Type guard function: checks if the object is a Basket Item (has quantity)
 function isBasketItem(product: Product | Item): product is Item {
@@ -102,8 +103,18 @@ export const basketApi = createApi({
                     patchResult.undo();
                 }
             }
+        }),
+        clearBasket: builder.mutation<void, void>({
+            queryFn: () => ({data: undefined}),
+            onQueryStarted: async (_, {dispatch}) => {
+                dispatch(
+                    basketApi.util.updateQueryData('fetchBasket', undefined, (draft) => {
+                        draft.items = []
+                    })
+                );
+                Cookies.remove('basketId');
+            }
         })
-
     })
 });
 
@@ -111,5 +122,6 @@ export const basketApi = createApi({
 export const {
     useFetchBasketQuery,
     useAddBasketItemMutation,
-    useRemoveBasketItemMutation
+    useRemoveBasketItemMutation,
+    useClearBasketMutation
 } = basketApi;

@@ -1,10 +1,17 @@
 using API.Data;
 using API.Entities;
 using API.Middleware;
+using API.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load .env file early
+DotNetEnv.Env.Load();
+
+builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -16,6 +23,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 builder.Services.AddCors();
 // Add service for exception
 builder.Services.AddTransient<ExceptionMiddleware>();
+builder.Services.AddScoped<PaymentService>();
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
 {
     opt.User.RequireUniqueEmail = true;

@@ -1,5 +1,5 @@
 export function currencyFormat(amount: number) {
-    return "RM" + (amount / 1000).toFixed(2)
+    return "RM" + (amount / 100).toFixed(2)
 };
 
 export function filterEmptyValues(values: object) {

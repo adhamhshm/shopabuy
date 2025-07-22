@@ -164,6 +164,20 @@
 - use zod and react-hook-form to add some form validation
 - setup some persisting login session, in accountApi.ts and so on
 - create data schema for login and register
+
+- using stripe
+- create account as usual
+- dotnet add package Stripe.net or use NuGet
+- Create the PaymentService.cs
+- Add service to Program.cs
+- Need to make update to the database, stop the API
+> dotnet ef migrations add BasketEntityUpdated
+- can see Data/Migrations/<entity> for the generated content
+- now create PaymentController.cs
+- Ensure the Basket entity, BasketExtensions and BasketDto has the updated fields for payment
+- Now can update the CheckoutPage, and it components in feature/checkout
+- install stripe for react
+- update Basket models too
 - 
 
 

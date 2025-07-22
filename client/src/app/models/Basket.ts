@@ -5,6 +5,8 @@ import { Product } from "./Product";
 export type Basket = {
     basketId: string      // Unique identifier for the basket (could be a user/session ID)
     items: Item[]         // Array of items currently in the basket
+    clientSecret?: string
+    paymentIntentId?: string
 }
 
 // Define an Item class representing a single item in the basket

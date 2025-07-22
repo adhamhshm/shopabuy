@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { router } from "../routes/Routes";
 
 const customBaseQuery = fetchBaseQuery({
-    baseUrl: "https://localhost:5001/api",
+    baseUrl: import.meta.env.VITE_API_URL,
     credentials: "include"
 });
 
@@ -49,13 +49,13 @@ export const baseQueryWithErrorHandling = async (args: string | FetchArgs, api: 
                 break;
             case 404:
                 //type guard
-                if (typeof responseData === "object" && "title" in responseData)
+                if (typeof responseData === "object" ) // && "title" in responseData
                     //toast.error(responseData.title);
                     router.navigate('/not-found')
                 break;
             case 500:
                 //type guard
-                if (typeof responseData === "object" && "title" in responseData)
+                if (typeof responseData === "object") // && "title" in responseData
                     //toast.error(responseData.title);
                     router.navigate('/server-error', {state: {error: responseData}})
                 break;
