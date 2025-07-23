@@ -221,5 +221,16 @@ Section 2 - source control with vs code
 - update routes/Routes.tsx
 - add stripe webhooks in the PaymentsController.cs
 - need to install stripe cli to get the WhSecret
+    > stripe login
+- go the the link and complete authorization
+    > Press Enter to open the browser or visit https://dashboard.stripe.com/stripecli/confirm_auth?
+    > Done! The Stripe CLI is configured for Shopabuy with account id acct_xxxxxxxxxx
+    > Please note: this key will expire after 90 days, at which point you'll need to re-authenticate.
+- use the listen command, after run this command, let the stripe clie run
+    > stripe listen -f https://localhost:5001/api/payments/webhook -e payment_intent.succeeded,payment_intent.payment_failed
+    > Ready! You are using Stripe API Version [2024-09-30.acacia]. Your webhook signing secret is whsec_xxxxxxxxxx
+- check if payment webhook is working
+    > 2025-07-23 09:47:48   --> payment_intent.succeeded [evt_xxxxxxxxxx]
+    > 2025-07-23 09:47:48  <--  [200] POST https://localhost:5001/api/payments/webhook [evt_xxxxxxxxxx]
 
 

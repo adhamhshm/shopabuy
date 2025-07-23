@@ -12,7 +12,7 @@ using Stripe;
 
 namespace API.Controllers;
 
-public class PaymentsController(PaymentsService paymentsService, IConfiguration config, StoreContext context, ILogger<PaymentsController> logger): BaseApiController
+public class PaymentsController(PaymentsService paymentsService, StoreContext context, ILogger<PaymentsController> logger): BaseApiController
 {
     [Authorize]
     [HttpPost]
@@ -40,6 +40,7 @@ public class PaymentsController(PaymentsService paymentsService, IConfiguration 
     }
 
     [HttpPost("webhook")]
+    [Consumes("application/json")]
     public async Task<IActionResult> StripeWebhook()
     {
         var json = await new StreamReader(Request.Body).ReadToEndAsync();
@@ -118,8 +119,15 @@ public class PaymentsController(PaymentsService paymentsService, IConfiguration 
     {
         try
         {
+            // return EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], config["StripeSettings:WhSecret"]);
             var whSecret = Environment.GetEnvironmentVariable("STRIPE_WH_SECRET");
-            return EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], whSecret);
+            return EventUtility.ConstructEvent(
+                json,
+                Request.Headers["Stripe-Signature"],
+                whSecret,
+                tolerance: 300,
+                throwOnApiVersionMismatch: false
+            );
         }
         catch (Exception ex)
         {

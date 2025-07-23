@@ -42,8 +42,12 @@ app.UseMiddleware<ExceptionMiddleware>(); // this mus be in top
 
 app.UseCors(opt =>
 {
+
     //opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:3000");
-    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:3000");
+    var clientWebApi = Environment.GetEnvironmentVariable("CLIENT_WEB_API");
+    if (string.IsNullOrWhiteSpace(clientWebApi))
+        throw new InvalidOperationException("CLIENT_WEB_API environment variable is not set.");
+    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(clientWebApi);
 });
 
 app.UseAuthentication();
