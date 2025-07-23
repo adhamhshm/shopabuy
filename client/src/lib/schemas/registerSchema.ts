@@ -5,7 +5,7 @@ const passwordValidation = new RegExp(
 )
 
 export const registerSchema = z.object({
-    email: z.email(),
+    email: z.string().email(),
     password: z.string().regex(passwordValidation, {
         message: "Password must:\n- Contain 1 lowercase character\n- Contain 1 uppercase character\n- Contain 1 number\n- Contain 1 special character\n- Be 6-10 characters long"
     })

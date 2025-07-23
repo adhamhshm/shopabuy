@@ -4,7 +4,6 @@ using API.Middleware;
 using API.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +16,7 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<StoreContext>(opt =>
 {
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 // Add CORS
 builder.Services.AddCors();
@@ -40,6 +39,9 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>(); // this mus be in top
 // app.UseDeveloperExceptionPage(); // something that is already added except we create our own
 
+app.UseDefaultFiles(); // Enables default file mapping on the current path
+app.UseStaticFiles(); // Enables static file serving for the current request path
+
 app.UseCors(opt =>
 {
 
@@ -57,7 +59,9 @@ app.MapControllers();
 
 app.MapGroup("api").MapIdentityApi<User>(); // api/login, this will give access to api endpoints for User entity
 
-DbInitializer.InitDb(app);
+app.MapFallbackToController("Index", "Fallback");
+
+await DbInitializer.InitDb(app);
 
 app.Run();
 

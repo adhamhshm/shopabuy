@@ -187,7 +187,7 @@ Section 2 - source control with vs code
 - see Data/Migrations/ folder
 - create Controller/PaymentsController.cs
 - update Basket entity, BasketExtensions, BasketDto with updated properties/fields for payment
-- update the CheckoutPage in the frontent
+- update the CheckoutPage in the frontend
 - create its components in feature/checkout
 - create lib/hooks/useBasket.ts
 - update some existing class to accomodate stripe integration
@@ -216,11 +216,11 @@ Section 2 - source control with vs code
 - update some methods in the lib/util.ts
 - install date-fns
     > npm install date-fns
-- update CheckoutSteppet.tsx with the "createOrder" mutation
+- update CheckoutStepper.tsx with the "createOrder" mutation
 - update CheckoutSuccess.tsx component
 - update routes/Routes.tsx
 - add stripe webhooks in the PaymentsController.cs
-- need to install stripe cli to get the WhSecret
+- need to use stripe cli and webhook to get the WhSecret
     > stripe login
 - go the the link and complete authorization
     > Press Enter to open the browser or visit https://dashboard.stripe.com/stripecli/confirm_auth?
@@ -233,4 +233,51 @@ Section 2 - source control with vs code
     > 2025-07-23 09:47:48   --> payment_intent.succeeded [evt_xxxxxxxxxx]
     > 2025-07-23 09:47:48  <--  [200] POST https://localhost:5001/api/payments/webhook [evt_xxxxxxxxxx]
 
+- Section 12 - Publishing/Deploying
+- update the app code to finalize some stuffs
+- update vite.config.ts to include build option
+- add env.production
+- check the package.json scripts -> build command
+- run build command
+    > npm run build
+- see in the API/ folder, there is wwwroot/ folder
+- update Program.cs to have "files" mapping in the middleware
+- refresh the app
+    > dotnet watch
+- open https://localhost:5001/ and the app will be running showing web pages 
+- refresh the page and the app will return "page can't be found"
+- create FallbackController.cs in the Controllers/ folder
+- update Program.cs to have the fallback controller
+- open https://localhost:5001/ and the app will be running showing web pages and can be refreshed
 
+- Section 12 - adding sql server
+- create a docker-compose.yaml to run sql server via docker, if not installed locally
+- update the appsetinggs.Development.json from "Data source=store.db" to "Server=localhost,1433....."
+- install thru NUGET > Microsoft.EntityFrameworkCore.SqlServer
+- remove sqlite dependency in the API.csproj
+- restore the dotnet build
+    > dotnet restore
+- update the services in Program.cs to use the sql server
+- remove the Data/Migrations/ folder, as created migrations is referenced to the sqlite
+- create new migrations for sql server, command below also added the folder path
+    > dotnet ef migrations add SqlServerInitial -o Data/Migrations
+- see in the Data/Migrations/ folder we now have all the migrations for everything we created
+- update the DbInitializer.cs and the Program.cs, refer version control for changes
+- drop the database 
+    > dotnet ef database drop
+- run the app again
+    > dotnet watch
+- update the CheckoutStepper.tsx, refer version control
+- build the react app again as there is changes in the frontend part
+
+- Section 12 - azure deployment
+- need to use card payment huhu
+- (all azure deployment configuration is skipped for now...)
+- publish .net app
+    > dotnet publish -c Release -o .bin/Publish
+- see the API/bin/Publish folder is created
+- can use the Azure App Service extension from vs code, the extension will appear
+- right click the Publish/ folder and "Deploy to Web App"
+- app should we working on the new deployed url
+- some bug fixes in orderApi.ts, need invalidate the cache
+- add tagTypes[] to the api etc
