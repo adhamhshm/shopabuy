@@ -1,6 +1,7 @@
 using API.Data;
 using API.Entities;
 using API.Middleware;
+using API.RequestHelpers;
 using API.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +14,18 @@ DotNetEnv.Env.Load();
 builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
+// builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary")); // using .env directly
 builder.Services.AddControllers();
 builder.Services.AddDbContext<StoreContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-// Add CORS
-builder.Services.AddCors();
-// Add service for exception
-builder.Services.AddTransient<ExceptionMiddleware>();
+
+builder.Services.AddCors(); // Add CORS
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddTransient<ExceptionMiddleware>(); // Add service for exception
 builder.Services.AddScoped<PaymentsService>();
+builder.Services.AddScoped<ImageService>();
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
 {
     opt.User.RequireUniqueEmail = true;

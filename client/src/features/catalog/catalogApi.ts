@@ -34,7 +34,9 @@ export const catalogApi = createApi({
 export const { 
     useFetchProductDetailsQuery, 
     useLazyFetchProductsQuery, 
-    useLazyFetchFiltersQuery 
+    useLazyFetchFiltersQuery,
+    useFetchProductsQuery,
+    useFetchFiltersQuery
 } = catalogApi;
 
 // export const catalogApi = createApi({

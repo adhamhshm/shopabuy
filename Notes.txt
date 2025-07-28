@@ -220,6 +220,8 @@ Section 2 - source control with vs code
 - update CheckoutSuccess.tsx component
 - update routes/Routes.tsx
 - add stripe webhooks in the PaymentsController.cs
+
+- Section 11 - stripe webhooks
 - need to use stripe cli and webhook to get the WhSecret
     > stripe login
 - go the the link and complete authorization
@@ -253,7 +255,7 @@ Section 2 - source control with vs code
 - Section 12 - adding sql server
 - create a docker-compose.yaml to run sql server via docker, if not installed locally
 - update the appsetinggs.Development.json from "Data source=store.db" to "Server=localhost,1433....."
-- install thru NUGET > Microsoft.EntityFrameworkCore.SqlServer
+- install in NUGET > Microsoft.EntityFrameworkCore.SqlServer
 - remove sqlite dependency in the API.csproj
 - restore the dotnet build
     > dotnet restore
@@ -281,3 +283,32 @@ Section 2 - source control with vs code
 - app should we working on the new deployed url
 - some bug fixes in orderApi.ts, need invalidate the cache
 - add tagTypes[] to the api etc
+
+- Section 13 - CRUD and Roles
+- switch to a new branch
+    > git checkout -b feature/inventory
+- create CreateProductDto.cs in the DTOs/ folder
+- update ProductsCotroller.cs with new methods
+- add automapper dependency (manual mapper is always better)
+- in NUGET, install > AutoMapper @ Jimmy Bogard, AutoMapper.Extensions.Microsoft.DependencyInjection @Jimmy Bogard
+- create MappingProfiles.cs in RequestHelpers/ folder
+- update with IMapper in the ProductsController.cs parameter
+- create UpdateProductDto.cs, update controller
+
+- Section 13 - usign cloudinary
+- use the cloud name, api key, api secret
+- create CloudinarySettings.cs
+- add services configration of the cloudinary in Program.cs
+- install in NUGET > CloudinaryDotNet
+- create ImageService.cs
+- update the Program.cs with image service
+- update Product.cs with new properties
+- update migrations
+    > dotnet ef migrations add PublicIdAdded
+- see data in Data/Migrations/ folder
+- create new feature/admin/ folder, create all the components in it
+- create some reusable components for the form in app/shared/components/ folder - AppDropzone, AppSelectInput, AppTextInput
+- create the adminApi.ts, update the store.ts to include the adminApi
+- create handleApiError methods in util.ts
+
+

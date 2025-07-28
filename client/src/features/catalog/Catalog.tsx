@@ -8,20 +8,19 @@ import { setPageNumber } from "./catalogSlice";
 import { useEffect } from "react";
 
 export default function Catalog() {
-  const productParams = useAppSelector(state => state.catalog);
-  const [triggerFetchProducts, {data, isLoading: productsLoading}] = useLazyFetchProductsQuery();
-  const [triggerFetchFilters, {data: filtersData, isLoading: filtersLoading}] = useLazyFetchFiltersQuery();
-  const dispatch = useAppDispatch();
+    const productParams = useAppSelector(state => state.catalog);
+    const [triggerFetchProducts, {data, isLoading: productsLoading}] = useLazyFetchProductsQuery();
+    const [triggerFetchFilters, {data: filtersData, isLoading: filtersLoading}] = useLazyFetchFiltersQuery();
+    const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    triggerFetchProducts(productParams);
-    triggerFetchFilters();
-  }, [triggerFetchFilters, triggerFetchProducts, productParams])
+    useEffect(() => {
+            triggerFetchProducts(productParams);
+            triggerFetchFilters();
+    }, [triggerFetchFilters, triggerFetchProducts, productParams])
 
-  if (productsLoading || filtersLoading || !data || !filtersData) 
-    return <div>Loading...</div>
+    if (productsLoading || filtersLoading || !data || !filtersData) return <div>Loading...</div>
 
-  return (
+    return (
         <Grid container spacing={4}>
             <Grid size={3}>
                 <Filters data={filtersData} />
@@ -45,7 +44,7 @@ export default function Catalog() {
                 )}
             </Grid>
         </Grid>
-  )
+    )
 }
 
 // Old code
